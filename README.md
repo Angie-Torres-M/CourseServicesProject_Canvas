@@ -5,8 +5,7 @@ Este proyecto implementa un sistema básico de gestión de cursos utilizando Pro
 ##  Estructura del proyecto
 
 ```
-src/
- └── com.generation.courses
+   src/
       ├── Course.java
       ├── Student.java
       ├── CourseService.java
