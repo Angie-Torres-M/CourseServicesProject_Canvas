@@ -1,0 +1,265 @@
+COURSE SERVICES PROJECT - EXPLICACION COMPLETA (VERSION EDUCATIVA, HASHMAP Y SWITCH)
+
+Este proyecto es un ejercicio práctico para comprender los fundamentos de la Programación Orientada a Objetos (POO) en Java. Su objetivo es simular un sistema donde estudiantes pueden inscribirse y desinscribirse de cursos, utilizando clases, objetos, HashMap y un menú de opciones.
+
+PROGRAMACION ORIENTADA A OBJETOS EN ESTE PROYECTO
+
+En este proyecto, la POO se aplica modelando elementos reales como objetos:
+
+Student: representa a un estudiante.
+
+Course: representa una materia.
+
+CourseService: administra toda la lógica del sistema.
+
+Main: permite la interacción del usuario.
+Main (ejemplo)
+  |
+  | (llama)
+  V
+CourseService    ← Aquí está la lógica (inscribir, buscar, validar)
+  |
+  | (usa)
+  V
+Student.enroll() ← solo agrega el curso a la lista
+
+
+Principios aplicados:
+
+Clases y objetos
+
+Atributos y métodos
+
+Encapsulamiento
+
+Relaciones entre objetos
+
+Separación de responsabilidades
+
+CLASES Y RESPONSABILIDADES
+
+A) Clase Course
+Representa un curso. Contiene:
+
+id: identificador del curso
+
+name: nombre del curso
+
+credits: número de créditos
+
+Responsabilidad: almacenar información del curso.
+
+Incluye un método toString() sobrescrito:
+
+@Override
+public String toString() {
+return "Course{" +
+"id='" + id + ''' +
+", name='" + name + ''' +
+", credits=" + credits +
+'}';
+}
+
+Este método permite mostrar los datos del curso como texto legible.
+
+B) Clase Student
+Representa a un estudiante.
+
+Atributos:
+
+id
+
+name
+
+enrolledCourses: lista de cursos inscritos
+
+Responsabilidad:
+Gestionar los cursos inscritos por el estudiante mediante:
+
+enroll(Course course)
+
+unEnroll(Course course)
+
+totalEnrolledCourses()
+
+Incluye un toString():
+
+@Override
+public String toString() {
+return "Student{" +
+"id='" + id + ''' +
+", name='" + name + ''' +
+", totalCursos=" + totalEnrolledCourses() +
+'}';
+}
+
+C) Clase CourseService (con HashMap)
+Es la capa de negocio del sistema.
+
+Contiene:
+
+students: HashMap<String, Student>
+
+courses: HashMap<String, Course>
+
+Uso de HashMap:
+La clave es el ID (String), y el valor es el objeto (Student o Course).
+Esto permite buscar por ID de manera directa usando .get(id).
+
+Responsabilidad:
+
+Registrar estudiantes y cursos
+
+Buscar por ID
+
+Validar datos
+
+Inscribir estudiantes
+
+Dar de baja cursos
+
+Mostrar tablas e información
+
+Ejemplo de inscripción dentro del servicio:
+Student student = students.get(studentId);
+Course course = courses.get(courseId);
+student.enroll(course);
+
+D) Clase Main (menú con switch)
+Esta clase permite la interacción con el usuario.
+
+Incluye:
+
+Menú de opciones numeradas
+
+Llamadas a CourseService
+
+Uso de Scanner para capturar entradas del usuario
+
+Ejemplo de menú:
+
+=== Menú Cursos ===
+
+Registrar estudiante
+
+Inscribir estudiante a curso
+
+Ver información de estudiante
+
+Ver información de curso
+
+Dar de baja un curso
+
+Salir
+
+El switch ejecuta la acción correcta según el número ingresado por el usuario.
+
+POR QUE USAMOS UN SERVICE
+
+El uso de CourseService permite:
+
+Separar responsabilidades
+
+Evitar que Student busque estudiantes o cursos
+
+Centralizar la lógica del negocio
+
+Facilitar la escalabilidad del proyecto
+
+Seguir buenas prácticas de diseño
+
+RELACION 1 A MUCHOS
+
+Student 1 -> muchos Courses
+Esto se implementa con:
+private List<Course> enrolledCourses;
+
+CourseService 1 -> muchos Students
+CourseService 1 -> muchos Courses
+Esto se implementa con HashMap.
+
+FLUJO COMPLETO DE INSCRIPCION
+
+Ejemplo:
+courseService.enrollStudent("S001", "C001");
+
+Pasos:
+
+Main llama al método del servicio.
+
+CourseService busca al estudiante por ID usando students.get("S001").
+
+CourseService busca el curso por ID usando courses.get("C001").
+
+Llama a student.enroll(course).
+
+Student agrega el curso a su lista.
+
+El programa muestra la información del estudiante.
+
+DIAGRAMA UML (TEXTO)
+
++------------------+
+| Course |
++------------------+
+| id: String |
+| name: String |
+| credits: int |
++------------------+
+
++-----------------------------+
+| Student |
++-----------------------------+
+| id: String |
+| name: String |
+| enrolledCourses: List |
++-----------------------------+
+
++---------------------------------------------+
+| CourseService |
++---------------------------------------------+
+| students: HashMap<String, Student> |
+| courses: HashMap<String, Course> |
++---------------------------------------------+
+
++-------------+
+| Main |
++-------------+
+
+QUE ES Y PARA QUE SIRVE @Override
+
+El decorador @Override indica que un método está siendo sobrescrito (redefinido) respecto al que viene de la clase base.
+
+Todas las clases en Java heredan de Object, que contiene un método:
+
+public String toString()
+
+Sin sobrescribirlo, imprimir un objeto muestra algo como:
+com.generation.Course@3ac3a1a7
+
+Con @Override toString() definido en Course o Student, el objeto se imprime en formato legible.
+
+Ejemplo:
+Course{id='C001', name='Java Básico', credits=5}
+
+Esto permite depurar, mostrar información y tener salidas profesionales en consola.
+
+RESUMEN FINAL
+
+Este proyecto enseña:
+
+Creación de clases y objetos
+
+Uso de HashMap para búsquedas por ID
+
+Gestión de relaciones 1 a muchos
+
+Encapsulamiento de lógica en servicios
+
+Implementación de menús con switch
+
+Uso de métodos para inscribir y desinscribir
+
+Sobrescritura de métodos con @Override
+
+Impresión de objetos en formato legible
